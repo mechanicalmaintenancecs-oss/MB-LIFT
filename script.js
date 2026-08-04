@@ -1,133 +1,130 @@
-/*==========================================================
-MB LIFT
-Main JavaScript
-==========================================================*/
+// ===============================
+// MB LIFT Website
+// script.js
+// ===============================
 
-document.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("load", function () {
 
-    /*======================================================
-    PRELOADER
-    ======================================================*/
+    // Hide Preloader
+    const loader = document.getElementById("loader");
 
-    window.addEventListener("load", function () {
+    if (loader) {
+        loader.style.opacity = "0";
 
-        const loader = document.getElementById("loader");
+        setTimeout(function () {
+            loader.style.display = "none";
+        }, 500);
+    }
 
-        if (loader) {
+});
 
-            loader.style.opacity = "0";
-            loader.style.visibility = "hidden";
 
-            setTimeout(function () {
+// ===============================
+// Back To Top Button
+// ===============================
 
-                loader.remove();
+const topBtn = document.getElementById("topBtn");
 
-            }, 500);
+window.addEventListener("scroll", function () {
 
-        }
+    if (window.scrollY > 400) {
 
-    });
+        topBtn.style.display = "flex";
 
-    /*======================================================
-    STICKY NAVBAR
-    ======================================================*/
+    } else {
 
-    const navbar = document.querySelector(".navbar-custom");
-
-    window.addEventListener("scroll", function () {
-
-        if (window.scrollY > 30) {
-
-            navbar.classList.add("scrolled");
-
-        } else {
-
-            navbar.classList.remove("scrolled");
-
-        }
-
-    });
-
-    /*======================================================
-    BACK TO TOP BUTTON
-    ======================================================*/
-
-    const topBtn = document.getElementById("topBtn");
-
-    window.addEventListener("scroll", function () {
-
-        if (!topBtn) return;
-
-        if (window.scrollY > 500) {
-
-            topBtn.style.display = "flex";
-
-        } else {
-
-            topBtn.style.display = "none";
-
-        }
-
-    });
-
-    if (topBtn) {
-
-        topBtn.addEventListener("click", function () {
-
-            window.scrollTo({
-
-                top: 0,
-
-                behavior: "smooth"
-
-            });
-
-        });
+        topBtn.style.display = "none";
 
     }
 
-    /*======================================================
-    SMOOTH SCROLL
-    ======================================================*/
+});
 
-    document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+topBtn.addEventListener("click", function () {
 
-        link.addEventListener("click", function (e) {
+    window.scrollTo({
 
-            const target = document.querySelector(this.getAttribute("href"));
+        top: 0,
 
-            if (!target) return;
+        behavior: "smooth"
+
+    });
+
+});
+
+
+// ===============================
+// Navbar Scroll Effect
+// ===============================
+
+const navbar = document.querySelector(".navbar-custom");
+
+window.addEventListener("scroll", function () {
+
+    if (window.scrollY > 50) {
+
+        navbar.classList.add("scrolled");
+
+    } else {
+
+        navbar.classList.remove("scrolled");
+
+    }
+
+});
+
+
+// ===============================
+// Mobile Menu
+// ===============================
+
+const mobileBtn = document.querySelector(".mobile-btn");
+
+const navMenu = document.querySelector(".nav-menu");
+
+mobileBtn.addEventListener("click", function () {
+
+    navMenu.classList.toggle("show");
+
+});
+
+
+// ===============================
+// Close Menu After Click
+// ===============================
+
+document.querySelectorAll(".nav-menu a").forEach(function (link) {
+
+    link.addEventListener("click", function () {
+
+        navMenu.classList.remove("show");
+
+    });
+
+});
+
+
+// ===============================
+// Smooth Scroll
+// ===============================
+
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor){
+
+    anchor.addEventListener("click", function(e){
+
+        const target = document.querySelector(this.getAttribute("href"));
+
+        if(target){
 
             e.preventDefault();
 
             target.scrollIntoView({
 
-                behavior: "smooth"
+                behavior:"smooth"
 
             });
 
-        });
+        }
 
     });
-
-    /*======================================================
-    MOBILE MENU
-    ======================================================*/
-
-    const mobileBtn = document.querySelector(".mobile-btn");
-
-    const navMenu = document.querySelector(".nav-menu");
-
-    if (mobileBtn && navMenu) {
-
-        mobileBtn.addEventListener("click", function () {
-
-            navMenu.classList.toggle("show");
-
-            this.classList.toggle("active");
-
-        });
-
-    }
 
 });
